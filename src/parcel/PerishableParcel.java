@@ -10,7 +10,7 @@ public class PerishableParcel extends Parcel {
     }
 
     public boolean isExpired(int currentDay) {
-        return getSendDay() + timeToLive <= currentDay;
+        return sendDay + timeToLive <= currentDay;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class PerishableParcel extends Parcel {
 
     @Override
     public void packageItem() {
-        System.out.printf("Посылка %s обёрнута в защитную плёнку.\n", getDescription());
+        System.out.printf("Посылка %s обёрнута в защитную плёнку.\n", description);
         super.packageItem();
     }
 }

@@ -2,10 +2,11 @@ package parcel;
 
 public abstract class Parcel {
 
-    private final String description;
-    private final int weight;
-    private final String deliveryAddress;
-    private final int sendDay;
+    protected String description;
+    protected int weight;
+    protected String deliveryAddress;
+    protected int sendDay;
+
     protected static final int STANDARD_COST = 2;
     protected static final int PERISHABLE_COST = 3;
     protected static final int FRAGILE_COST = 4;
@@ -25,7 +26,7 @@ public abstract class Parcel {
         System.out.printf("Посылка '%s' доставлена по адресу: %s.\n", description, deliveryAddress);
     }
 
-    abstract int getBaseCost();
+    protected abstract int getBaseCost();
 
     public double calculateDeliveryCost() {
         return weight * getBaseCost();
@@ -39,12 +40,9 @@ public abstract class Parcel {
         return weight;
     }
 
-    public int getSendDay() {
-        return sendDay;
-    }
-
     @Override
     public String toString() {
         return "Посылка '" + description + "' (" + weight + " кг)";
     }
+
 }
