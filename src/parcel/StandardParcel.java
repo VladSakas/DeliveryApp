@@ -7,7 +7,7 @@ public class StandardParcel extends Parcel {
     }
 
     @Override
-    int getBaseCost() {
+    public int getBaseCost() {
         return STANDARD_COST;
     }
 }
