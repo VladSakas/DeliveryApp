@@ -45,23 +45,29 @@ public class DeliveryApp {
         while (true) {
             showParcelMenu(); // показываем меню какую посылку отправить
             int parcelType = Integer.parseInt(scanner.nextLine()); //выбираем тип посылки
+
             if (parcelType > 0 && parcelType < 4) {
                 Parcel parcel = createParcel(parcelType);
                 allParcels.add(parcel);
+
                 switch (parcelType) {
                     case 1 -> standardBox.addParcel((StandardParcel) parcel);
                     case 2 -> fragileBox.addParcel((FragileParcel) parcel);
                     case 3 -> perishableBox.addParcel((PerishableParcel) parcel);
                 }
+
                 System.out.println(parcel + " успешно добавлена в список!");
+
                 if (parcel instanceof Trackable) {
                     trackingParcels.add((Trackable) parcel);
                     System.out.println("Посылка добавлена в систему отслеживания!");
                 }
                 break;
+
             } else {
                 System.out.println("Ошибка! Неверный тип посылки. Введите число от 1 до 3");
             }
+
         }
     }
 
@@ -99,6 +105,7 @@ public class DeliveryApp {
         String address = scanner.nextLine();
 
         int sendDay;
+
         while (true) {
             System.out.print("Введите день отправки: ");
             sendDay = Integer.parseInt(scanner.nextLine());
@@ -108,6 +115,7 @@ public class DeliveryApp {
                 break;
             }
         }
+
         switch (parcelType) {
             case 1:
                 return new StandardParcel(description, weight, address, sendDay);
@@ -127,13 +135,16 @@ public class DeliveryApp {
             System.out.println("Нет посылок в системе отслеживания");
             return;
         }
+
         System.out.print("Введите новое местоположение (для всех посылок): ");
         String newLocation = scanner.nextLine();
 
         System.out.println("Обновление статусов отслеживания...");
+
         for (Trackable trackable : trackingParcels) {
             trackable.reportStatus(newLocation);
         }
+
         System.out.println("Статус всех посылок обновлён!");
     }
 
@@ -144,25 +155,24 @@ public class DeliveryApp {
         System.out.println("3 - Скоропортящиеся посылки");
 
         int boxType = Integer.parseInt(scanner.nextLine());
+
         switch (boxType) {
-            case 1:
+            case 1 -> {
                 for (Parcel parcel : standardBox.getAllParcels()) {
                     System.out.println(parcel);
                 }
-                break;
-            case 2:
+            }
+            case 2 -> {
                 for (Parcel parcel : fragileBox.getAllParcels()) {
                     System.out.println(parcel);
                 }
-                break;
-            case 3:
+            }
+            case 3 -> {
                 for (Parcel parcel : perishableBox.getAllParcels()) {
                     System.out.println(parcel);
                 }
-                break;
-            default:
-                System.out.println("Неверный выбор! Введите число от 1 до 3");
-                break;
+            }
+            default -> System.out.println("Неверный выбор! Введите число от 1 до 3");
         }
     }
 }
